@@ -23,7 +23,7 @@ namespace gst_box {
       return GstWrapper(pipeline_str);
     }
 
-    void operator()() ;
+    void operator()();
 
     void stop() const;
 
@@ -35,5 +35,5 @@ namespace gst_box {
 
     ~GstWrapper();
   };
-}
+}// namespace gst_box
 #endif//GSTREAMER_BOX_INCLUDE_GSTWRAPPER_HPP

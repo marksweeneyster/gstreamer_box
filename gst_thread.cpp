@@ -1,23 +1,27 @@
-#include <gst/gst.h>
 #include "GstWrapper.hpp"
+#include <gst/gst.h>
 #include <thread>
 
 int main(int argc, char* argv[]) {
 
   gst_init(&argc, &argv);
 
-  auto gst_win_webcam = gst_box::GstWrapper::MakePipeline("v4l2src device-index=0 ! "
-                                                  "video/x-raw,format=YUY2,width=800,framerate=24/1 "
-                                                  "! fpsdisplaysink");
+  auto gst_win_webcam = gst_box::GstWrapper::MakePipeline(
+          "v4l2src device-index=0 ! "
+          "video/x-raw,format=YUY2,width=800,framerate=24/1 "
+          "! fpsdisplaysink");
 
-  auto gst_trailer = gst_box::GstWrapper::MakePipeline("playbin "
-                                                       "uri=https://gstreamer.freedesktop.org/data/"
-                                                       "media/sintel_trailer-480p.webm");
+  auto gst_trailer = gst_box::GstWrapper::MakePipeline(
+          "playbin "
+          "uri=https://gstreamer.freedesktop.org/data/"
+          "media/sintel_trailer-480p.webm");
 
-  auto gst_vid_test = gst_box::GstWrapper::MakePipeline("videotestsrc ! autovideosink");
+  auto gst_vid_test =
+          gst_box::GstWrapper::MakePipeline("videotestsrc ! autovideosink");
 
-  auto gst_rtp_meerkat= gst_box::GstWrapper::MakePipeline("videotestsrc ! avenc_mpeg4 ! rtpmp4vpay "
-                                                           "config-interval=1 ! udpsink host=192.168.0.14");
+  auto gst_rtp_meerkat = gst_box::GstWrapper::MakePipeline(
+          "videotestsrc ! avenc_mpeg4 ! rtpmp4vpay "
+          "config-interval=1 ! udpsink host=192.168.0.14");
 
   std::thread t([&gst_win_webcam]() { gst_win_webcam(); });
   std::thread t2([&gst_trailer]() { gst_trailer(); });
