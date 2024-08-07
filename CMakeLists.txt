@@ -4,6 +4,7 @@ project(gstreamer_box CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(PkgConfig)
+find_package(Threads REQUIRED)
 
 # May need to set environment variable PKG_CONFIG_PATH
 pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
@@ -11,7 +12,7 @@ pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
 add_library(GST_FLAGS INTERFACE)
 target_include_directories(GST_FLAGS INTERFACE ${GSTREAMER_INCLUDE_DIRS})
 target_link_directories(GST_FLAGS INTERFACE ${GSTREAMER_LIBRARY_DIRS})
-target_link_libraries(GST_FLAGS INTERFACE ${GSTREAMER_LIBRARIES})
+target_link_libraries(GST_FLAGS INTERFACE ${GSTREAMER_LIBRARIES} Threads::Threads)
 
 
 pkg_check_modules(GSTREAMER_PB REQUIRED gstreamer-pbutils-1.0)
@@ -19,7 +20,7 @@ pkg_check_modules(GSTREAMER_PB REQUIRED gstreamer-pbutils-1.0)
 add_library(GST_PB INTERFACE)
 target_include_directories(GST_PB INTERFACE ${GSTREAMER_PB_INCLUDE_DIRS})
 target_link_directories(GST_PB INTERFACE ${GSTREAMER_PB_LIBRARY_DIRS})
-target_link_libraries(GST_PB INTERFACE ${GSTREAMER_PB_LIBRARIES})
+target_link_libraries(GST_PB INTERFACE ${GSTREAMER_PB_LIBRARIES} Threads::Threads)
 
 add_executable(gstreamer_box main.cpp)
 target_link_libraries(gstreamer_box PUBLIC GST_FLAGS)

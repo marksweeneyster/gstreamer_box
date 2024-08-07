@@ -6,8 +6,8 @@ int main(int argc, char* argv[]) {
 
   gst_init(&argc, &argv);
 
-  auto gst_win_webcam = gst_box::GstWrapper::MakePipeline("mfvideosrc device-index=0 ! "
-                                                  "video/x-raw,format=NV12,width=640,framerate=30/1 "
+  auto gst_win_webcam = gst_box::GstWrapper::MakePipeline("v4l2src device-index=0 ! "
+                                                  "video/x-raw,format=YUY2,width=800,framerate=24/1 "
                                                   "! fpsdisplaysink");
 
   auto gst_trailer = gst_box::GstWrapper::MakePipeline("playbin "
