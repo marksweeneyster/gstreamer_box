@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(gstreamer_box CXX)
+project(gstreamer_box C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -33,6 +33,9 @@ target_link_libraries(tutorial3 PUBLIC GST_FLAGS)
 
 add_executable(tutorial9 tutorial9.cpp)
 target_link_libraries(tutorial9 PUBLIC GST_PB)
+
+add_executable(borrowed_rtp borrowed_rtp_example.c)
+target_link_libraries(borrowed_rtp PUBLIC GST_FLAGS)
 
 add_executable(gst_thread gst_thread.cpp src/GstWrapper.cpp)
 target_include_directories(gst_thread PUBLIC include)
