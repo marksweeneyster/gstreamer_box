@@ -1,5 +1,6 @@
 #include <gst/gst.h>
 #include "GstWrapper.hpp"
+#include <chrono>
 #include <thread>
 
 int main(int argc, char* argv[]) {
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
   std::thread t3([&gst_vid_test]() { gst_vid_test(); });
   std::thread t4(&gst_box::GstWrapper::operator(), &gst_rtp_meerkat);
 
-  using namespace std::chrono_literals;
+  using namespace std::literals::chrono_literals;
   std::this_thread::sleep_for(20s);
 
   gst_vid_test.stop();

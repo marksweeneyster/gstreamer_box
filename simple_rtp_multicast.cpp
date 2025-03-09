@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
   /* Initialize GStreamer */
   gst_init(&argc, &argv);
 
-  pipeline = gst_parse_launch("videotestsrc ! avenc_mpeg4 ! rtpmp4vpay "
+  pipeline = gst_parse_launch("videotestsrc ! warptv ! vertigotv ! videoconvert ! avenc_mpeg4 ! rtpmp4vpay "
                               "config-interval=1 ! udpsink host=224.1.1.1 port=5004 auto-multicast=true",
                               nullptr);
   /**
